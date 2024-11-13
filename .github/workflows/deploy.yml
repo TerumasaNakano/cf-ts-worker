@@ -3,12 +3,9 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: "Choose an environment to deploy to: <dev|staging|prod>"
-        required: true
-        default: "dev"
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -16,10 +13,9 @@ jobs:
     name: Deploy
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy app
+      - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           wranglerVersion: "2.14.0"
-          command: deploy --env ${{ github.event.inputs.environment }}
