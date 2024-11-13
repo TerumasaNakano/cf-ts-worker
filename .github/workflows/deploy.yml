@@ -3,12 +3,13 @@
 name: Deploy
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
     inputs:
       environment:
-        description: "Choose an environment to deploy to: <dev|staging|prod>"
-        required: true
-        default: "staging"
+        required: false
 
 jobs:
   deploy:
