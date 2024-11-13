@@ -8,7 +8,7 @@ on:
       environment:
         description: "Choose an environment to deploy to: <dev|staging|prod>"
         required: true
-        default: "dev"
+        default: "staging"
 
 jobs:
   deploy:
