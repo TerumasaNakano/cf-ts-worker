@@ -1,11 +1,14 @@
 ---
 
-name: Deploy
+name: ManuallyDeploy
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose an environment to deploy to: <dev|staging|prod>"
+        required: true
+        default: "dev"
 
 jobs:
   deploy:
@@ -17,5 +20,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_TOKEN }}
+          command: deploy --env ${{ github.event.inputs.environment }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
           wranglerVersion: "2.14.0"
